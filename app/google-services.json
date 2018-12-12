@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1087959403724",
+    "firebase_url": "https://hamlet-80775.firebaseio.com",
+    "project_id": "hamlet-80775",
+    "storage_bucket": "hamlet-80775.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087959403724:android:36f584bb9f0ca730",
+        "android_client_info": {
+          "package_name": "in.technogenie.hamlet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087959403724-tbhrof0aluakcf6gjgo5k0qsnkkf2ge9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.technogenie.hamlet",
+            "certificate_hash": "652a505103575d9070690c88fb08652259048e7a"
+          }
+        },
+        {
+          "client_id": "1087959403724-vhi6vfqn5i5d7e3vfudllcj9bunpuie5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYojKJRJFQfmUi-rmfmSXHJdBmz3m64dQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087959403724-vhi6vfqn5i5d7e3vfudllcj9bunpuie5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

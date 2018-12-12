@@ -1,0 +1,383 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="in.technogenie.hamlet.fragment.MemberDetailsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/member_Image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_person"
+                android:alpha="0.3"/>
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="25dp"
+                android:stretchColumns="2" >
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Name :"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/member_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/comfortaa"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:text="Member Name"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Jcrt Name :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/jcrt_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:text="JCRT Name" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Designation :"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/member_designation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:layout_weight="1"
+                        android:ellipsize="none"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="Member Designation" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="LOM Name :"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/lomName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:layout_weight="1"
+                        android:ellipsize="none"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="Member LOM Name" />
+                </TableRow>
+
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Contact Number :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/member_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:text="9999999999" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Email ID :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/member_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:gravity="start"
+                        android:padding="3dip" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Organization :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/member_occupation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:layout_weight="1"
+                        android:ellipsize="none"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:text="Member Occupation" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Category :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/member_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:layout_weight="1"
+                        android:ellipsize="none"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:text="Member Category" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Products :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/member_products"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:layout_weight="1"
+                        android:ellipsize="none"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:text="Member Products" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Company Website :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/website"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:layout_weight="1"
+                        android:ellipsize="none"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:text=" "
+                        android:autoLink="web"
+                        android:textColor="@color/blue"
+
+                        />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Date Of Birth :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/member_dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:gravity="start"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Anniversary :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/member_anniversary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:gravity="start"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Blood Group :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/blood_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:text="B+" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Home Address :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/home_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:layout_weight="1"
+                        android:ellipsize="none"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:text="11/2, Shiva Arun Colony, West Marredpally, Secunderabad, Telangana" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="3dip"
+                        android:text="Office Address :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/office_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway"
+                        android:layout_weight="1"
+                        android:ellipsize="none"
+                        android:gravity="start"
+                        android:padding="3dip"
+                        android:text="11/2, Shiva Arun Colony, West Marredpally, Secunderabad, Telangana" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3dip" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="left"
+                        android:orientation="horizontal" >
+
+                        <ImageButton
+                            android:id="@+id/user_phone"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginRight="25dp"
+                            android:background="@drawable/custom_border"
+                            android:src="@drawable/ic_phone"
+                            />
+
+                        <ImageButton
+                            android:id="@+id/user_sms"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/custom_border"
+                            android:src="@drawable/ic_email"
+                        />
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
