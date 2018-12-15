@@ -1,7 +1,6 @@
-package in.technogenie.hamlet.adapter;
+package in.technogenie.hamlet.gallery;
 
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,29 +10,34 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import in.technogenie.hamlet.R;
 import in.technogenie.hamlet.beans.GalleryItemVO;
+import in.technogenie.hamlet.fragment.GalleryFragment;
 import in.technogenie.hamlet.utils.ScreenUtils;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
     private ArrayList<GalleryItemVO> galleryList;
-    private Context context;
+    //private Context context;
+    private GalleryFragment fragment;
+
     //Declare GalleryAdapterCallBacks
     private GalleryAdapterCallBacks mAdapterCallBacks;
 
-    public GalleryAdapter(Context context, ArrayList<GalleryItemVO> galleryList) {
+/*
+    public GalleryAdapter(ArrayList<GalleryItemVO> galleryList) {
         this.galleryList = galleryList;
-        this.context = context;
+        //this.context = context;
     }
+*/
 
-    public GalleryAdapter(Context context) {
-        this.context = context;
+    public GalleryAdapter(GalleryFragment fragment) {
+        //this.context = context;
+        this.fragment = fragment;
         //get GalleryAdapterCallBacks from contex
-        this.mAdapterCallBacks = (GalleryAdapterCallBacks) context;
+        this.mAdapterCallBacks = (GalleryAdapterCallBacks) fragment;
         //Initialize GalleryItem List
         this.galleryList = new ArrayList<>();
     }
@@ -61,13 +65,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         //get current Gallery Item
         GalleryItemVO currentItem = galleryList.get(i);
         //Create file to load with Picasso lib
-        File imageViewThoumb = new File(currentItem.getImageUri());
+        //File imageViewThoumb = new File(currentItem.getImageUri());
 
         //Load with Picasso
         Picasso.get()
-                .load(imageViewThoumb)
+                .load(currentItem.getImageUri())
                 .centerCrop()
-                .resize(ScreenUtils.getScreenWidth(context) / 2, ScreenUtils.getScreenHeight(context) / 3)//Resize image to width half of screen and height 1/3 of screen height
+                .resize(ScreenUtils.getScreenWidth(fragment.getActivity()) / 2, ScreenUtils.getScreenHeight(fragment.getActivity()) / 3)//Resize image to width half of screen and height 1/3 of screen height
                 .into(viewHolder.img);
         //set name of Image
         viewHolder.title.setText(currentItem.getImageName());

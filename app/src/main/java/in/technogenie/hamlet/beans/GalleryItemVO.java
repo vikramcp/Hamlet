@@ -1,12 +1,14 @@
 package in.technogenie.hamlet.beans;
 
-public class GalleryItemVO {
+import java.io.Serializable;
 
-    private String imageUri;
+public class GalleryItemVO implements Serializable {
+
+    private Integer imageUri;
     private String imageName;
     private boolean isSelected = false;
 
-    public GalleryItemVO(String imageUri, String imageName) {
+    public GalleryItemVO(Integer imageUri, String imageName) {
         this.imageUri = imageUri;
         this.imageName = imageName;
     }
@@ -15,11 +17,11 @@ public class GalleryItemVO {
 
     }
 
-    public String getImageUri() {
+    public Integer getImageUri() {
         return imageUri;
     }
 
-    public void setImageUri(String imageUri) {
+    public void setImageUri(Integer imageUri) {
         this.imageUri = imageUri;
     }
 

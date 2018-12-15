@@ -6,7 +6,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import in.technogenie.hamlet.beans.GalleryItemVO;
 
@@ -21,7 +20,7 @@ public class GalleryUtils {
     }
 
     //method to get images
-    public static List<GalleryItemVO> getImages(Context context) {
+    public static ArrayList<GalleryItemVO> getImages(Context context) {
         final String[] projection = {MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.DATA};
         final String selection = MediaStore.Images.Media.BUCKET_ID + " = ?";
         final String[] selectionArgs = {GalleryUtils.getBucketId(CAMERA_IMAGE_BUCKET_NAME)};
@@ -35,7 +34,7 @@ public class GalleryUtils {
             final int dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             final int nameColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME);
             do {
-                GalleryItemVO galleryItem = new GalleryItemVO(cursor.getString(dataColumn), cursor.getString(nameColumn));
+                GalleryItemVO galleryItem = new GalleryItemVO(cursor.getInt(dataColumn), cursor.getString(nameColumn));
                 result.add(galleryItem);
             } while (cursor.moveToNext());
         }

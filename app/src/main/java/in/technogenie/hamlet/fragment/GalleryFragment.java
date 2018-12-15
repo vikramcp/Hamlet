@@ -1,20 +1,29 @@
 package in.technogenie.hamlet.fragment;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import in.technogenie.hamlet.R;
-import in.technogenie.hamlet.adapter.GalleryAdapter;
 import in.technogenie.hamlet.beans.GalleryItemVO;
+import in.technogenie.hamlet.gallery.GalleryAdapter;
+import in.technogenie.hamlet.gallery.SlideShowFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,15 +38,20 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
 
-
+    //Deceleration of list of  GalleryItems
+    public ArrayList<GalleryItemVO> galleryItems;
+    //Read storage permission request code
+    private static final int RC_READ_STORAGE = 5;
+    GalleryAdapter mGalleryAdapter;
+    RecyclerView recyclerView;
 
     private static final String ARG_PARAM2 = "param2";
 
     private final String image_titles[] = {
-            "Img1",
-            "Img2",
-            "Img3",
-            "Img4",
+            "Image 1",
+            "Image 2",
+            "Image 3",
+            "Image 4",
     };
 
     private final Integer image_ids[] = {
@@ -89,17 +103,32 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.imagegallery);
-        recyclerView.setHasFixedSize(true);
+        recyclerView = (RecyclerView) view.findViewById(R.id.imagegallery);
+        //recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         recyclerView.setLayoutManager(layoutManager);
-        ArrayList<GalleryItemVO> galleryItemVOS = prepareData();
-        GalleryAdapter adapter = new GalleryAdapter(getContext(), galleryItemVOS);
-        recyclerView.setAdapter(adapter);
+        //ArrayList<GalleryItemVO> galleryItemVOS = prepareData();
+        mGalleryAdapter = new GalleryAdapter(this);
+        recyclerView.setAdapter(mGalleryAdapter);
+
+        //check for read storage permission
+        if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            //Get images
+            //galleryItems = GalleryUtils.getImages(this.getActivity());
+            galleryItems = prepareData();
+
+            Log.d("GalleryFragment", galleryItems.toString());
+            // add images to gallery recyclerview using adapter
+            mGalleryAdapter.addGalleryItems(galleryItems);
+        } else {
+            //request permission
+            ActivityCompat.requestPermissions(this.getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, RC_READ_STORAGE);
+        }
 
         return view;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -141,24 +170,46 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
     }
 
     private ArrayList<GalleryItemVO> prepareData(){
-
+        Log.d("GalleryFragment", "Inside prepareData..");
         ArrayList<GalleryItemVO> theimage = new ArrayList<>();
         for(int i = 0; i< image_titles.length; i++){
             GalleryItemVO galleryItemVO = new GalleryItemVO();
             galleryItemVO.setImageName(image_titles[i]);
-            galleryItemVO.setImageUri(image_ids[i].toString());
+            galleryItemVO.setImageUri(image_ids[i]);
             theimage.add(galleryItemVO);
         }
+        Log.d("GalleryFragment", "Exiting prepareData :" + theimage.size());
         return theimage;
     }
 
-    @Override
-    /**
-     * Implemented method of GalleryAdapter
-     */
-    public void onItemSelected(int position) {
 
+    @Override
+    public void onItemSelected(int position) {
+        //create fullscreen SlideShowFragment dialog
+        SlideShowFragment slideShowFragment = SlideShowFragment.newInstance(position, galleryItems);
+        //setUp style for slide show fragment
+        slideShowFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogFragmentTheme);
+        //finally show dialogue
+        slideShowFragment.show(getActivity().getSupportFragmentManager(), null);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == RC_READ_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                //Get images
+                //galleryItems = GalleryUtils.getImages(getContext());
+                galleryItems = prepareData();
+
+                // add images to gallery recyclerview using adapter
+                mGalleryAdapter.addGalleryItems(galleryItems);
+
+            } else {
+                Toast.makeText(getContext(), "Storage Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }
 
