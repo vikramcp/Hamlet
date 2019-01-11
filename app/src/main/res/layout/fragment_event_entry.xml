@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:scrollbars="vertical"
+        android:showDividers="middle">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Event Name"
+            android:textColor="@color/grey"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/event_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="30dp"
+            android:background="@drawable/bg_edittext"
+            android:ems="20"
+            android:hint="Event Name"
+            android:inputType="textShortMessage"
+            android:padding="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location of Event"
+            android:textColor="@color/grey"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="30dp"
+            android:background="@drawable/bg_edittext"
+            android:ems="20"
+            android:hint="Location of Event"
+            android:inputType="textShortMessage"
+            android:padding="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Person"
+            android:textColor="@color/grey"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/contact_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext"
+            android:ems="20"
+            android:hint="Contact Person"
+            android:inputType="textShortMessage"
+            android:padding="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mobile Number"
+            android:textColor="@color/grey"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext"
+            android:ems="20"
+            android:hint="Contact Mobile Number"
+            android:inputType="phone"
+            android:padding="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Event Date"
+            android:textColor="@color/grey"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/event_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext"
+            android:ems="10"
+            android:hint="Date of Event"
+            android:inputType="date"
+            android:padding="5dp" />
+
+        <LinearLayout
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical"
+                android:weightSum="0.5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start Time"
+                    android:textColor="@color/grey"
+                    android:textSize="12dp" />
+
+                <EditText
+                    android:id="@+id/start_time"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_edittext"
+                    android:ems="10"
+                    android:hint="Start Time"
+                    android:inputType="time" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="0.5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="End Time"
+                    android:textColor="@color/grey"
+                    android:textSize="12dp" />
+
+                <EditText
+                    android:id="@+id/end_time"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/start_time"
+                    android:background="@drawable/bg_edittext"
+                    android:ems="10"
+                    android:hint="End Time"
+                    android:inputType="time" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textColor="@color/grey"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext"
+            android:hint="Description of Event"
+            android:inputType="textMultiLine"
+            android:lines="5"
+            android:gravity="top|left"
+            android:padding="2dp" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkgreen"
+            android:text="Save Event"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</ScrollView>
+

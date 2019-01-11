@@ -23,7 +23,8 @@ import java.net.URL;
 
 public class JSONParser {
 
-    private static final String MAIN_URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=17Wrov7FQV6vIYh4ndsZRQINstmflbRA9s8WkPgNbbe4&sheet=Sheets1";
+    private static final String MEMBERS_URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=17Wrov7FQV6vIYh4ndsZRQINstmflbRA9s8WkPgNbbe4&sheet=Sheets1";
+    private static final String EVENTS_URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=10bHphTkpeCWSvPRBrwTDdROQJ2lb5ulr2ZNmNCSynd4&sheet=Sheet1";
 
     public static final String TAG = "JSONParser";
 
@@ -80,7 +81,7 @@ public class JSONParser {
     public static JSONObject getDataFromWeb() {
         try {
             OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder().url(MAIN_URL).build();
+            Request request = new Request.Builder().url(MEMBERS_URL).build();
             response = client.newCall(request).execute();
 
             Log.d("JSON Data 1 :", "" + response.body().string());
@@ -100,11 +101,11 @@ public class JSONParser {
         return null;
     }
 
-    public static JSONArray getDataArrayFromWeb() {
+    public static JSONArray getMemberDataArrayFromWeb() {
         try {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url(MAIN_URL)
+                    .url(MEMBERS_URL)
                     .build();
             response = client.newCall(request).execute();
 
@@ -131,6 +132,37 @@ public class JSONParser {
         return null;
     }
 
+    public static JSONArray getEventsDataArrayFromWeb() {
+        try {
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(EVENTS_URL)
+                    .build();
+            response = client.newCall(request).execute();
+
+            //Log.d("JSON Data :", "" + response.body().string());
+
+            String stringToParse = response.body().string();
+            System.out.println("JSON String Data 1 :" + stringToParse);
+
+            // result=getJSONUrl(url);  //<< get json string from server
+            JSONObject jsonObject = new JSONObject(stringToParse);
+
+            // Log.d("JSON Object :", "" + jsonObject);
+
+            JSONArray array = jsonObject.getJSONArray(Keys.EVENT_CONTACTS);
+            Log.d("JSON Array :", "" + array);
+
+            return array;
+
+        } catch (@NonNull IOException | JSONException e) {
+            Log.e(TAG, "" + e.getLocalizedMessage());
+        } catch (Exception e) {
+            Log.e(TAG, "" + e.getLocalizedMessage());
+        }
+        return null;
+    }
+
     public static JSONObject getDataById(int userId) {
 
         try {
@@ -141,7 +173,7 @@ public class JSONParser {
                     .build();
 
             Request request = new Request.Builder()
-                    .url(MAIN_URL)
+                    .url(MEMBERS_URL)
                     .post(formBody)
                     .build();
 

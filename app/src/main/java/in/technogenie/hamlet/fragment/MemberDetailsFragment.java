@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 
+import in.technogenie.hamlet.MainActivity;
 import in.technogenie.hamlet.R;
 import in.technogenie.hamlet.beans.CustomerVO;
 import in.technogenie.hamlet.utils.CommunicationsUtils;
@@ -91,11 +94,12 @@ public class MemberDetailsFragment extends Fragment {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         if (getArguments() != null) {
-            //mParam1 = getArguments().getString(ARG_PARAM1);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
             customerVO = (CustomerVO) getArguments().getSerializable("customer");
             Log.d("MemberDetailsFragment", customerVO.toString());
         }
+
+        // show the UP button
+        ((MainActivity) getActivity()).showUpButton();
     }
 
     @Override
@@ -229,6 +233,28 @@ public class MemberDetailsFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                if (fm.getBackStackEntryCount() > 0) {
+                    fm.popBackStack();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+/*    @Override
+    public void onBackStackChanged() {
+        // enable Up button only  if there are entries on the backstack
+        if(getActivity().getSupportFragmentManager().getBackStackEntryCount() < 1) {
+            ((MainActivity)getActivity()).hideUpButton();
+        }
+    }*/
 
     /**
      * This interface must be implemented by activities that contain this

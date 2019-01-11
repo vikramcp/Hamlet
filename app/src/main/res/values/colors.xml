@@ -10,7 +10,7 @@
 
     <item name="blue" type="color">#1E5AFF</item>
     <item name="purple" type="color">#FFAA66CC</item>
-    <item name="green" type="color">#FF99CC00</item>
+    <item name="green" type="color">#64dd17</item>
     <item name="orange" type="color">#FFFFBB33</item>
     <item name="red" type="color">#FFFF4444</item>
     <item name="darkblue" type="color">#0A7091</item>
@@ -19,10 +19,11 @@
     <item name="darkorange" type="color">#FFFF8800</item>
     <item name="darkred" type="color">#FFCC0000</item>
     <item name="pink" type="color">#FF8CE4</item>
-    <item name="white" type="color">#FFFFFF</item>
+    <item name="white" type="color">#ffffff</item>
     <item name="cyan" type="color">#00FFFF</item>
     <item name="lightblue" type="color">#ADD8E6</item>
     <item name="grey" type="color">#9e9e9e</item>
+    <item name="lightgrey" type="color">#dcdcdc</item>
     <item name="black" type="color">#000000</item>
 
     <integer-array name="androidcolors">

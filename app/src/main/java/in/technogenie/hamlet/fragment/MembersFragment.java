@@ -1,12 +1,10 @@
 package in.technogenie.hamlet.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,22 +20,14 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import in.technogenie.hamlet.R;
 import in.technogenie.hamlet.adapter.ImageViewAdapter;
 import in.technogenie.hamlet.beans.CustomerVO;
-import in.technogenie.hamlet.parser.JSONParser;
 import in.technogenie.hamlet.utils.InternetConnection;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -51,19 +41,12 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * create an instance of this fragment.
  */
 public class MembersFragment extends Fragment implements SearchView.OnQueryTextListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     List<CustomerVO> customers =  null;
     ListView listView;
     ProgressBar progressBar;
     String searchText;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private final static String TAG = MembersFragment.class.getSimpleName();
 
     private OnFragmentInteractionListener mListener;
 
@@ -75,16 +58,14 @@ public class MembersFragment extends Fragment implements SearchView.OnQueryTextL
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     *
      * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MembersFragment newInstance(String param1, String param2) {
+    public static MembersFragment newInstance(List<CustomerVO> customers) {
         MembersFragment fragment = new MembersFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable("customers", (ArrayList) customers);
         fragment.setArguments(args);
         return fragment;
     }
@@ -92,11 +73,14 @@ public class MembersFragment extends Fragment implements SearchView.OnQueryTextL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
+        customers = (ArrayList<CustomerVO>) getArguments().getSerializable("customers");
+
+        Log.d(TAG, "Customers Size :" + customers.size());
+
+        /*// listen to backstack changes
+        getActivity().getSupportFragmentManager().addOnBackStackChangedListener(this);
+        ((MainActivity)getActivity()).hideUpButton();*/
 
     }
 
@@ -108,6 +92,9 @@ public class MembersFragment extends Fragment implements SearchView.OnQueryTextL
         listView = (ListView) view.findViewById(R.id.listMemberView);
         listView.setTextFilterEnabled(true);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(ProgressBar.VISIBLE);
+
+
 
         /**
          * Checking Internet Connection
@@ -159,6 +146,14 @@ public class MembersFragment extends Fragment implements SearchView.OnQueryTextL
             mListener.onFragmentInteraction(uri);
         }
     }
+
+/*    @Override
+    public void onBackStackChanged() {
+        // enable Up button only  if there are entries on the backstack
+        *//*if(getActivity().getSupportFragmentManager().getBackStackEntryCount() < 1) {
+            ((MainActivity)getActivity()).hideUpButton();
+        }*//*
+    }*/
 
     @Override
     public void onAttach(Context context) {
@@ -215,6 +210,12 @@ class Downloader extends AsyncTask<String, Void, String> {
     int jIndex;
     int x;
 
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        progressBar.setVisibility(ProgressBar.VISIBLE);
+    }
+
 /*        @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -237,26 +238,24 @@ class Downloader extends AsyncTask<String, Void, String> {
     @SuppressWarnings("unchecked")
     @Override
     protected String doInBackground(String... arg0) {
-        customers = new ArrayList<CustomerVO>();
+        //customers = new ArrayList<CustomerVO>();
         try {
 
             /**
              * Getting JSON Object from Web Using okHttp
              */
             // JSONObject jsonObject = JSONParser.getDataFromWeb();
-
             // Log.d("MembersFragment", "JSON Object :"+ jsonObject);
-
-
             //JSONArray array = jsonObject.getJSONArray(Keys.KEY_CONTACTS);
-            JSONArray array = JSONParser.getDataArrayFromWeb();
+
+            // JSONArray array = JSONParser.getMemberDataArrayFromWeb();
 
             /**
              * Check Length of Array...
              */
 
             //Log.d("MembersFragment", "JSON Array :"+ array);
-            int lenArray = array.length();
+           /* int lenArray = array.length();
             if(lenArray > 0) {
                 for (; jIndex < lenArray; jIndex++) {
 
@@ -330,12 +329,9 @@ class Downloader extends AsyncTask<String, Void, String> {
                     customers.add(customerVO);
 
                 }
-            }
+            }*/
 
 
-            /**
-             * Sort the Customer List in ascending order
-             */
             Collections.sort(customers, new Comparator<CustomerVO>() {
                 @Override
                 public int compare(CustomerVO lhs, CustomerVO rhs) {
@@ -354,59 +350,11 @@ class Downloader extends AsyncTask<String, Void, String> {
             myString = (new Gson()).toJson(customers);
 
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             Log.e("MembersFragment", "JSON Exception :" + e);
         }
         return myString;
     }
-
-/*        @SuppressWarnings("unchecked")
-        @Override
-        protected String doInBackground(String... arg0) {
-            try {
-                Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy")
-                        .create();
-
-                InputStream is = MembersFragment.getResources().openRawResource(
-                        R.raw.biz_member_list);
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(is));
-                String gsonStr;
-                StringBuilder text = new StringBuilder();
-                while ((gsonStr = in.readLine()) != null) {
-                    text.append(gsonStr);
-                }
-                Type type = new TypeToken<List<CustomerVO>>() {
-                }.getType();
-                customers = (List<CustomerVO>) gson.fromJson(text.toString(),
-                        type);
-
-                *//**
-     * Sort the Customer List in ascending order
-     *//*
-                Collections.sort(customers, new Comparator<CustomerVO>() {
-                    @Override
-                    public int compare(CustomerVO lhs, CustomerVO rhs) {
-                        return (lhs.getName().trim()).compareTo(rhs.getName().trim());
-                    }
-                });
-
-                *//**
-     * Search Functionality Implementation
-     *//*
-                if (! TextUtils.isEmpty(searchText)) {
-                    customers = getCustomerFilterList(customers);
-                }
-
-                //Log.d("MemberActivity", "Member List: " + customers);
-                myString = (new Gson()).toJson(customers);
-                in.close();
-
-            } catch (IOException e) {
-                Log.e("MemberActivity", "IO Exception :" + e);
-            }
-            return myString;
-        }*/
 
     private List<CustomerVO> getCustomerFilterList(List<CustomerVO> customers) {
 

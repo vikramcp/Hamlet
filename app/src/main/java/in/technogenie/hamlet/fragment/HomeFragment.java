@@ -5,7 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +16,9 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import java.util.Timer;
 import java.util.TimerTask;
 
+import in.technogenie.hamlet.MainActivity;
 import in.technogenie.hamlet.R;
 import in.technogenie.hamlet.adapter.ImageViewAdapter;
 import in.technogenie.hamlet.utils.SliderAdapter;
@@ -29,8 +32,8 @@ import in.technogenie.hamlet.utils.SliderAdapter;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    private final static String TAG = HomeFragment.class.getSimpleName();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -112,22 +115,50 @@ public class HomeFragment extends Fragment {
 
                 //private String[] web = { "Members", "Gallery", "Messages", "Events","Promotions", "Contact Us" };
                 if ((web[position]).equals("Members")) {
-                    //
+                    replaceFragment(new MemberMasterFragment(), web[position]);
+
                 } else if ((web[position]).equals("Gallery")) {
-                    //showHomePage();
+                    replaceFragment(new GalleryFragment(), web[position]);
+
                 } else if ((web[position]).equals("Messages")) {
-                    //showAboutUs();
+                    replaceFragment(new MessagesFragment(), web[position]);
+
                 } else if ((web[position]).equals("Events")) {
-                    //showEvents();
+                    replaceFragment(new EventsFragment(), web[position]);
+
                 } else if ((web[position]).equals("Promotions")) {
-                    //showContactUs();
+                    replaceFragment(new PromotionsFragment(), web[position]);
+
                 } else if ((web[position]).equals("Contact Us")) {
-                    //showPastPresidents();
+                    //replaceFragment(new PromotionsFragment(), R.layout.fragment_promotions);
+                    //Intent intent = new Intent()
+
                 }
             }
         });
 
         return view;
+    }
+
+    // Replace current Fragment with the destination Fragment.
+    public void replaceFragment(Fragment destFragment, String screenName) {
+
+        Log.d(TAG, "Entering replaceFragment..:" + screenName);
+        // First get FragmentManager object.
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(screenName);
+
+        // Begin Fragment transaction.
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Replace the layout holder with the required Fragment object.
+        fragmentTransaction.replace(R.id.frame, destFragment);
+
+        // Commit the Fragment replace action.
+        fragmentTransaction.commit();
+
+        Log.d(TAG, "Exiting replaceFragment..");
     }
 
     // TODO: Rename method, update argument and hook method into UI event

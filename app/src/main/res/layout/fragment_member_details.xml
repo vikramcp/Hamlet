@@ -365,7 +365,7 @@
                             android:layout_height="50dp"
                             android:layout_marginRight="25dp"
                             android:background="@drawable/custom_border"
-                            android:src="@drawable/ic_phone"
+                            android:src="@drawable/ic_phone_white"
                             />
 
                         <ImageButton
@@ -373,7 +373,7 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:background="@drawable/custom_border"
-                            android:src="@drawable/ic_email"
+                            android:src="@drawable/ic_email_white"
                         />
                     </LinearLayout>
                 </TableRow>

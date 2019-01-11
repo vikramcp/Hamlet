@@ -5,36 +5,25 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuthException;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -42,7 +31,7 @@ import org.json.JSONObject;
 import in.technogenie.hamlet.fragment.EventsFragment;
 import in.technogenie.hamlet.fragment.GalleryFragment;
 import in.technogenie.hamlet.fragment.HomeFragment;
-import in.technogenie.hamlet.fragment.MembersFragment;
+import in.technogenie.hamlet.fragment.MemberMasterFragment;
 import in.technogenie.hamlet.fragment.MessagesFragment;
 import in.technogenie.hamlet.fragment.PromotionsFragment;
 import in.technogenie.hamlet.utils.Constants;
@@ -54,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private View navHeader;
     private Toolbar toolbar;
-    private FloatingActionButton fab;
+    //private FloatingActionButton fab;
     Fragment fragment;
     private ImageView imgNavHeaderBg, imgProfile;
     private TextView txtName, txtWebsite;
@@ -83,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         mHandler = new Handler();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        // fab = (FloatingActionButton) findViewById(R.id.fab);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         // Navigation view header
@@ -103,13 +92,13 @@ public class MainActivity extends AppCompatActivity {
                 .addApi(Auth.GOOGLE_SIGN_IN_API).build();
 
         //Listner for Floating Action Button
-        fab.setOnClickListener(new View.OnClickListener() {
+/*        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         Intent intent = getIntent();
         String jsondata = intent.getStringExtra("userProfile");
@@ -132,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         // initializing navigation menu
         setUpNavigationView();
 
-
+        hideUpButton();
 
     }
 
@@ -155,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Replace the layout holder with the required Fragment object.
         fragmentTransaction.replace(R.id.frame, destFragment);
+
+        fragmentTransaction.addToBackStack(null);
 
         // Commit the Fragment replace action.
         fragmentTransaction.commit();
@@ -393,7 +384,8 @@ public class MainActivity extends AppCompatActivity {
                 return homeFragment;
             case 1:
                 // members fragment
-                MembersFragment membersFragment = new MembersFragment();
+                //MembersFragment membersFragment = new MembersFragment();
+                MemberMasterFragment membersFragment = new MemberMasterFragment();
                 return membersFragment;
             case 2:
                 // gallery fragment
@@ -420,6 +412,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void showUpButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void hideUpButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    }
 
     @Override
     public void onBackPressed() {
@@ -450,7 +449,8 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Log.d(MainActivity.class.getSimpleName(), "settings menu selected.");
-            Toast.makeText(this, "Logut Selected", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Settings Selected", Toast.LENGTH_LONG);
+            getSupportFragmentManager().popBackStack();
             return true;
         } else if (id == R.id.action_logout) {
             Log.d(MainActivity.class.getSimpleName(), "Log out menu selected.");
@@ -458,9 +458,9 @@ public class MainActivity extends AppCompatActivity {
             signout();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
+
 
     /**
      * Signout Function being called..
@@ -477,10 +477,10 @@ public class MainActivity extends AppCompatActivity {
 
     // show or hide the fab
     private void toggleFab() {
-        if (navItemIndex == 0)
-            fab.show();
+        /*if (navItemIndex == 0)
+           // fab.show();
         else
-            fab.hide();
+           // fab.hide();*/
     }
 
     @Override
