@@ -64,7 +64,6 @@ public class MembersBusinessFragment extends Fragment implements SearchView.OnQu
      * @param customers
      * @return A new instance of fragment HomeFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static MembersBusinessFragment newInstance(List<CustomerVO> customers, List categoryList) {
         MembersBusinessFragment fragment = new MembersBusinessFragment();
         Bundle args = new Bundle();
@@ -132,11 +131,12 @@ public class MembersBusinessFragment extends Fragment implements SearchView.OnQu
                 }
 
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
                 MembersFragment fragment2 = MembersFragment.newInstance(filterCustomers);
                 Log.d(TAG, "Filtered Customer List :" + filterCustomers);
 
-                ft.add(R.id.frame, fragment2);
+                ft.replace(R.id.root_frame, fragment2);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
             }

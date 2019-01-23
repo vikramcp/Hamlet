@@ -8,8 +8,8 @@ import android.util.Log;
 import java.util.List;
 
 import in.technogenie.hamlet.beans.CustomerVO;
-import in.technogenie.hamlet.fragment.MembersBusinessFragment;
 import in.technogenie.hamlet.fragment.MembersFragment;
+import in.technogenie.hamlet.fragment.RootFragment;
 
 public class MembersTabsAdapter extends FragmentStatePagerAdapter {
 
@@ -40,8 +40,9 @@ public class MembersTabsAdapter extends FragmentStatePagerAdapter {
                 return home;
             case 1:
                 Log.d("MembersTabsAdapter", "MembersBusinessFragment View Triggered.." + position);
-                MembersBusinessFragment biz = MembersBusinessFragment.newInstance(customers, categoryList);
-                return biz;
+                //MembersBusinessFragment biz = MembersBusinessFragment.newInstance(customers, categoryList);
+                RootFragment root = RootFragment.newInstance(customers, categoryList);
+                return root;
             default:
                 MembersFragment home3 = new MembersFragment();
                 return home3;
