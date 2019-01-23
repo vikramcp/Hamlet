@@ -136,7 +136,7 @@ public class MembersBusinessFragment extends Fragment implements SearchView.OnQu
                 MembersFragment fragment2 = MembersFragment.newInstance(filterCustomers);
                 Log.d(TAG, "Filtered Customer List :" + filterCustomers);
 
-                ft.replace(R.id.frame, fragment2);
+                ft.add(R.id.frame, fragment2);
                 ft.addToBackStack(null);
                 ft.commit();
             }

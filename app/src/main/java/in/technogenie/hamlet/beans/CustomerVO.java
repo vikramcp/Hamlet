@@ -1,13 +1,13 @@
 package in.technogenie.hamlet.beans;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import in.technogenie.hamlet.utils.Utility;
 
 public class CustomerVO implements Serializable {
-	private int customerId;
-	private String jciID;
+    private String customerId;
+    private String membershipID;
 	private String name;
 	private String jcrtName;
 	private String currentRole;
@@ -20,7 +20,8 @@ public class CustomerVO implements Serializable {
 	private String officeAddress;
 	private Integer age;
 	private String qualification;
-	private String occupation;
+    private String companyName;
+    private String companyDesignation;
 	private String category;
 	private String products;
 	private String website;
@@ -28,11 +29,11 @@ public class CustomerVO implements Serializable {
 	private Date joinedDate;
 	private String imageURL;
 
-	public int getCustomerId() {
+    public String getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
 
@@ -116,12 +117,12 @@ public class CustomerVO implements Serializable {
 		this.qualification = qualification;
 	}
 
-	public String getOccupation() {
-		return Utility.toTitleCase(occupation);
-	}
+    public String getCompanyName() {
+        return Utility.toTitleCase(companyName);
+    }
 
-	public void setOccupation(String occupation) {
-		this.occupation = occupation;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
 	}
 
 	public String getCategory() {
@@ -156,12 +157,12 @@ public class CustomerVO implements Serializable {
 		this.imageURL = imageURL;
 	}
 
-	public String getJciID() {
-		return jciID;
-	}
+    public String getMembershipID() {
+        return membershipID;
+    }
 
-	public void setJciID(String jciID) {
-		this.jciID = jciID;
+    public void setMembershipID(String membershipID) {
+        this.membershipID = membershipID;
 	}
 
 	public String getJcrtName() {
@@ -196,110 +197,41 @@ public class CustomerVO implements Serializable {
 		this.website = website;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("CustomerVO [customerId=");
-		builder.append(customerId);
-		builder.append(", jciID=");
-		builder.append(jciID);
-		builder.append(", ");
-		if (name != null) {
-			builder.append("name=");
-			builder.append(name);
-			builder.append(", ");
-		}
-		if (jcrtName != null) {
-			builder.append("jcrtName=");
-			builder.append(jcrtName);
-			builder.append(", ");
-		}
-		if (currentRole != null) {
-			builder.append("currentRole=");
-			builder.append(currentRole);
-			builder.append(", ");
-		}
-		if (lomName != null) {
-			builder.append("lomName=");
-			builder.append(lomName);
-			builder.append(", ");
-		}
-		if (mobile != null) {
-			builder.append("mobile=");
-			builder.append(mobile);
-			builder.append(", ");
-		}
-		if (emailID != null) {
-			builder.append("emailID=");
-			builder.append(emailID);
-			builder.append(", ");
-		}
-		if (dateOfBirth != null) {
-			builder.append("dateOfBirth=");
-			builder.append(dateOfBirth);
-			builder.append(", ");
-		}
-		if (anniversary != null) {
-			builder.append("anniversary=");
-			builder.append(anniversary);
-			builder.append(", ");
-		}
-		if (address != null) {
-			builder.append("address=");
-			builder.append(address.replaceAll("\\s+", " "));
-			builder.append(", ");
-		}
-		if (officeAddress != null) {
-			builder.append("officeAddress=");
-			builder.append(officeAddress.replaceAll("\\s+", " "));
-			builder.append(", ");
-		}
-		if (age != null) {
-			builder.append("age=");
-			builder.append(age);
-			builder.append(", ");
-		}
-		if (qualification != null) {
-			builder.append("qualification=");
-			builder.append(qualification);
-			builder.append(", ");
-		}
-		if (occupation != null) {
-			builder.append("occupation=");
-			builder.append(occupation);
-			builder.append(", ");
-		}
-		if (category != null) {
-			builder.append("category=");
-			builder.append(category);
-			builder.append(", ");
-		}
-		if (bloodGroup != null) {
-			builder.append("bloodGroup=");
-			builder.append(bloodGroup);
-			builder.append(", ");
-		}
-		if (joinedDate != null) {
-			builder.append("joinedDate=");
-			builder.append(joinedDate);
-			builder.append(", ");
-		}
-		if (products != null) {
-			builder.append("products=");
-			builder.append(products);
-			builder.append(", ");
-		}
-		if (website != null) {
-			builder.append("website=");
-			builder.append(website);
-			builder.append(", ");
-		}
-		if (imageURL != null) {
-			builder.append("imageURL=");
-			builder.append(imageURL);
-		}
-		builder.append("]");
-		return builder.toString();
-	}
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("CustomerVO{");
+        sb.append("customerId=").append(customerId);
+        sb.append(", membershipID='").append(membershipID).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", jcrtName='").append(jcrtName).append('\'');
+        sb.append(", currentRole='").append(currentRole).append('\'');
+        sb.append(", lomName='").append(lomName).append('\'');
+        sb.append(", mobile='").append(mobile).append('\'');
+        sb.append(", emailID='").append(emailID).append('\'');
+        sb.append(", dateOfBirth=").append(dateOfBirth);
+        sb.append(", anniversary=").append(anniversary);
+        sb.append(", address='").append(address).append('\'');
+        sb.append(", officeAddress='").append(officeAddress).append('\'');
+        sb.append(", age=").append(age);
+        sb.append(", qualification='").append(qualification).append('\'');
+        sb.append(", companyName='").append(companyName).append('\'');
+        sb.append(", companyDesignation='").append(companyDesignation).append('\'');
+        sb.append(", category='").append(category).append('\'');
+        sb.append(", products='").append(products).append('\'');
+        sb.append(", website='").append(website).append('\'');
+        sb.append(", bloodGroup='").append(bloodGroup).append('\'');
+        sb.append(", joinedDate=").append(joinedDate);
+        sb.append(", imageURL='").append(imageURL).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
+    public String getCompanyDesignation() {
+        return Utility.toTitleCase(companyDesignation);
+    }
+
+    public void setCompanyDesignation(String companyDesignation) {
+        this.companyDesignation = companyDesignation;
+    }
 
 }

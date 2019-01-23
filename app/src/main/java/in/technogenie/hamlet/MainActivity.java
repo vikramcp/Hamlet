@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         // initializing navigation menu
         setUpNavigationView();
 
-        hideUpButton();
+        //hideUpButton();
 
     }
 
@@ -412,13 +412,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void showUpButton() {
+/*    public void showUpButton() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void hideUpButton() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

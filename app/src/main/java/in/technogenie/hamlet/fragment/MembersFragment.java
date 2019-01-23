@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
@@ -45,6 +46,7 @@ public class MembersFragment extends Fragment implements SearchView.OnQueryTextL
     List<CustomerVO> customers =  null;
     ListView listView;
     ProgressBar progressBar;
+    private FloatingActionButton newMembers;
     String searchText;
     private final static String TAG = MembersFragment.class.getSimpleName();
 
@@ -74,9 +76,7 @@ public class MembersFragment extends Fragment implements SearchView.OnQueryTextL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        customers = (ArrayList<CustomerVO>) getArguments().getSerializable("customers");
 
-        Log.d(TAG, "Customers Size :" + customers.size());
 
         /*// listen to backstack changes
         getActivity().getSupportFragmentManager().addOnBackStackChangedListener(this);
@@ -93,6 +93,34 @@ public class MembersFragment extends Fragment implements SearchView.OnQueryTextL
         listView.setTextFilterEnabled(true);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressBar.setVisibility(ProgressBar.VISIBLE);
+        newMembers = (FloatingActionButton) view.findViewById(R.id.newMembers);
+
+        // hide the UP button
+        //((MainActivity) getActivity()).hideUpButton();
+
+
+        customers = (ArrayList<CustomerVO>) getArguments().getSerializable("customers");
+
+        Log.d(TAG, "Customers Size :" + customers.size());
+
+        //Listner for New Members Floating Action Button
+        newMembers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                MemberEntryFragment fragment3 = new MemberEntryFragment();
+
+                Log.d(TAG, "Opening new Member Registration Form :");
+
+                ft.add(R.id.frame, fragment3);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
 
 
 
@@ -130,7 +158,7 @@ public class MembersFragment extends Fragment implements SearchView.OnQueryTextL
                 //bundle.putParcelable("customer", obj);
                 fragment2.setArguments(bundle);
 
-                ft.replace(R.id.frame, fragment2);
+                ft.add(R.id.frame, fragment2);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -265,7 +293,7 @@ class Downloader extends AsyncTask<String, Void, String> {
                     CustomerVO customerVO = new CustomerVO();
                     JSONObject innerObject = array.getJSONObject(jIndex);
                     if (innerObject.getString("Membership_ID") != null) {
-                        customerVO.setJciID(innerObject.getString("Membership_ID"));
+                        customerVO.setMembershipID(innerObject.getString("Membership_ID"));
                     }
                     if (innerObject.getString("Full_Name") != null) {
                         customerVO.setName(innerObject.getString("Full_Name"));
@@ -286,7 +314,7 @@ class Downloader extends AsyncTask<String, Void, String> {
                         customerVO.setAddress(innerObject.getString("Residence_Address"));
                     }
                     if (innerObject.getString("Organization_Name") != null) {
-                        customerVO.setOccupation(innerObject.getString("Organization_Name"));
+                        customerVO.setCompanyName(innerObject.getString("Organization_Name"));
                     }
                     if (innerObject.getString("Category") != null) {
                         customerVO.setCategory(innerObject.getString("Category"));
@@ -365,7 +393,7 @@ class Downloader extends AsyncTask<String, Void, String> {
             CustomerVO vo = customers.get(i);
             if ((vo.getName() != null && vo.getName().toUpperCase().contains(searchText.toUpperCase())) ||
                     (vo.getCurrentRole()!= null && vo.getCurrentRole().toUpperCase().contains(searchText.toUpperCase())) ||
-                    (vo.getOccupation() != null && vo.getOccupation().toUpperCase().contains(searchText.toUpperCase())) ||
+                    (vo.getCompanyName() != null && vo.getCompanyName().toUpperCase().contains(searchText.toUpperCase())) ||
                     (vo.getCategory()!= null && vo.getCategory().toUpperCase().contains(searchText.toUpperCase())) ||
                     (vo.getProducts()!= null && vo.getProducts().toUpperCase().contains(searchText.toUpperCase())) ||
                     (vo.getLomName()!= null && vo.getLomName().toUpperCase().contains(searchText.toUpperCase())) ||

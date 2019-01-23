@@ -71,4 +71,62 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Membere Screen Details -->
+    <string name="member_name">Name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="email_id">Email ID</string>
+    <string name="residence_address">Residence Address</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="marriage_anniversary">Marriage Anniversary</string>
+    <string name="blood_group">Blood Group</string>
+
+    <string name="membership_id">Membership ID</string>
+    <string name="lom_name">LOM Name</string>
+    <string name="lom_designation">JCI Designation</string>
+
+    <string name="category">Category</string>
+    <string name="products">Products</string>
+    <string name="org_name">Organization Name</string>
+    <string name="org_designation">Designation</string>
+    <string name="org_address">Organization Address</string>
+    <string name="website">website</string>
+    <string name="education_qualification">Educational Qualification</string>
+    <string name="upload_photo">Upload Photo </string>
+
+    <string-array name="business_categories">
+        <item></item>
+        <item>Arts, crafts, and collectibles</item>
+        <item>Baby Products</item>
+        <item>Beauty and fragrances</item>
+        <item>Books and magazines</item>
+        <item>Clothing, accessories, and shoes</item>
+        <item>Computers, accessories, and services</item>
+        <item>Construction &amp; related products</item>
+        <item>Education</item>
+        <item>Electronics</item>
+        <item>Entertainment and media</item>
+        <item>Financial services and products</item>
+        <item>Food retail and service</item>
+        <item>Gifts and flowers</item>
+        <item>Health and personal care</item>
+        <item>Home and garden</item>
+        <item>Industrial Equipment &amp; Parts</item>
+        <item>Jewelry &amp; accessories</item>
+        <item>Manufacturing</item>
+        <item>Nonprofit</item>
+        <item>Packaging</item>
+        <item>Pets and animals</item>
+        <item>Printing</item>
+        <item>Retail  (not elsewhere classified)</item>
+        <item>Services - other</item>
+        <item>Software</item>
+        <item>Sports and outdoors</item>
+        <item>Toys and hobbies</item>
+        <item>Transport</item>
+        <item>Training</item>
+        <item>Travel</item>
+        <item>Vehicle sales &amp; services</item>
+        <item>Others</item>
+    </string-array>
+
 </resources>

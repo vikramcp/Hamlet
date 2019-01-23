@@ -12,8 +12,10 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import in.technogenie.hamlet.R;
-import in.technogenie.hamlet.beans.GalleryItemVO;
+import in.technogenie.hamlet.beans.Upload;
 import in.technogenie.hamlet.utils.ScreenUtils;
+
+//import in.technogenie.hamlet.beans.GalleryItemVO;
 
 /**
  * Created by amardeep on 11/3/2017.
@@ -25,9 +27,9 @@ public class SlideShowPagerAdapter extends PagerAdapter {
     //Layout inflater
     LayoutInflater mLayoutInflater;
     //list of Gallery Items
-    List<GalleryItemVO> galleryItems;
+    List<Upload> galleryItems;
 
-    public SlideShowPagerAdapter(Context context, List<GalleryItemVO> galleryItems) {
+    public SlideShowPagerAdapter(Context context, List<Upload> galleryItems) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //set galleryItems
@@ -51,7 +53,7 @@ public class SlideShowPagerAdapter extends PagerAdapter {
 
         //load current image in viewpager
         //Picasso.get().load(new File(galleryItems.get(position).getImageUri())).fit().into(imageView);
-        Picasso.get().load(galleryItems.get(position).getImageUri())
+        Picasso.get().load(galleryItems.get(position).getUrl())
                 .centerInside()
                 .resize(ScreenUtils.getScreenWidth(mContext), ScreenUtils.getScreenHeight(mContext))
                 .into(imageView);

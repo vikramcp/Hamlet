@@ -87,7 +87,6 @@ public class MemberMasterFragment extends Fragment {
 
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
 
-
         return view;
     }
 
@@ -124,7 +123,7 @@ public class MemberMasterFragment extends Fragment {
                         CustomerVO customerVO = new CustomerVO();
                         JSONObject innerObject = array.getJSONObject(jIndex);
                         if (innerObject.getString("Membership_ID") != null) {
-                            customerVO.setJciID(innerObject.getString("Membership_ID"));
+                            customerVO.setMembershipID(innerObject.getString("Membership_ID"));
                         }
                         if (innerObject.getString("Full_Name") != null) {
                             customerVO.setName(innerObject.getString("Full_Name"));
@@ -145,7 +144,7 @@ public class MemberMasterFragment extends Fragment {
                             customerVO.setAddress(innerObject.getString("Residence_Address"));
                         }
                         if (innerObject.getString("Organization_Name") != null) {
-                            customerVO.setOccupation(innerObject.getString("Organization_Name"));
+                            customerVO.setCompanyName(innerObject.getString("Organization_Name"));
                         }
                         if (innerObject.getString("Category") != null) {
                             customerVO.setCategory(innerObject.getString("Category"));

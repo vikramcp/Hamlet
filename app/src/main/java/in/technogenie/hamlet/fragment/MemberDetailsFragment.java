@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 
-import in.technogenie.hamlet.MainActivity;
 import in.technogenie.hamlet.R;
 import in.technogenie.hamlet.beans.CustomerVO;
 import in.technogenie.hamlet.utils.CommunicationsUtils;
@@ -66,6 +65,8 @@ public class MemberDetailsFragment extends Fragment {
     ImageButton userPhone;
     ImageButton userSMS;
 
+    private final static String TAG = MemberDetailsFragment.class.getSimpleName();
+
     private OnFragmentInteractionListener mListener;
 
     public MemberDetailsFragment() {
@@ -99,7 +100,7 @@ public class MemberDetailsFragment extends Fragment {
         }
 
         // show the UP button
-        ((MainActivity) getActivity()).showUpButton();
+        //((MainActivity) getActivity()).showUpButton();
     }
 
     @Override
@@ -134,7 +135,7 @@ public class MemberDetailsFragment extends Fragment {
         jcrtName.setText(customerVO.getJcrtName());
         memberDesignation.setText(customerVO.getCurrentRole());
         lomName.setText(customerVO.getLomName());
-        memberOccupation.setText(customerVO.getOccupation());
+        memberOccupation.setText(customerVO.getCompanyName());
         memberCategory.setText(customerVO.getCategory());
         memberProduct.setText(customerVO.getProducts());
 
@@ -217,6 +218,7 @@ public class MemberDetailsFragment extends Fragment {
         }
     }
 
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -236,6 +238,8 @@ public class MemberDetailsFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "MenuItemId :" + item.getItemId());
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 FragmentManager fm = getActivity().getSupportFragmentManager();

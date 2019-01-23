@@ -1,7 +1,5 @@
 package in.technogenie.hamlet.adapter;
 
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.List;
 
 import in.technogenie.hamlet.R;
 import in.technogenie.hamlet.beans.CustomerVO;
@@ -100,7 +100,7 @@ public class ImageViewAdapter extends BaseAdapter {
 					customerList.get(position) != null) {
 				name = customerList.get(position).getName();
 				textView.setText(name);
-				currentOrg.setText(customerList.get(position).getOccupation());
+                currentOrg.setText(customerList.get(position).getCompanyName());
 				currentRole.setText(customerList.get(position).getCurrentRole());
 				imageView.setImageResource(R.drawable.ic_person);
 			} else if (page.equals("HomeActivity") && web != null &&
@@ -160,7 +160,7 @@ public class ImageViewAdapter extends BaseAdapter {
 					customerList.get(position) != null) {
 				name = customerList.get(position).getName();
 				textView.setText(name);
-				currentOrg.setText(customerList.get(position).getOccupation());
+                currentOrg.setText(customerList.get(position).getCompanyName());
 				currentRole.setText(customerList.get(position).getCurrentRole());
 				imageView.setImageResource(R.drawable.ic_person);
 				//imageView.setImageResource(Utility.getImage(customerList.get(position).getCustomerId()));

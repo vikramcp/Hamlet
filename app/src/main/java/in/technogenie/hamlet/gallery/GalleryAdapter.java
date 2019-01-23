@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.technogenie.hamlet.R;
-import in.technogenie.hamlet.beans.GalleryItemVO;
+import in.technogenie.hamlet.beans.Upload;
 import in.technogenie.hamlet.fragment.GalleryFragment;
 import in.technogenie.hamlet.utils.ScreenUtils;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
-    private ArrayList<GalleryItemVO> galleryList;
+    private ArrayList<Upload> galleryList;
     //private Context context;
     private GalleryFragment fragment;
 
@@ -43,7 +43,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     }
 
     //This method will take care of adding new Gallery items to RecyclerView
-    public void addGalleryItems(List<GalleryItemVO> galleryList) {
+    public void addGalleryItems(List<Upload> galleryList) {
         int previousSize = this.galleryList.size();
         this.galleryList.addAll(galleryList);
         notifyItemRangeInserted(previousSize, galleryList.size());
@@ -63,18 +63,18 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         viewHolder.img.setImageResource(new Integer((galleryList.get(i).getImageUri())));*/
 
         //get current Gallery Item
-        GalleryItemVO currentItem = galleryList.get(i);
+        Upload currentItem = galleryList.get(i);
         //Create file to load with Picasso lib
         //File imageViewThoumb = new File(currentItem.getImageUri());
 
         //Load with Picasso
         Picasso.get()
-                .load(currentItem.getImageUri())
+                .load(currentItem.getUrl())
                 .centerCrop()
                 .resize(ScreenUtils.getScreenWidth(fragment.getActivity()) / 2, ScreenUtils.getScreenHeight(fragment.getActivity()) / 3)//Resize image to width half of screen and height 1/3 of screen height
                 .into(viewHolder.img);
         //set name of Image
-        viewHolder.title.setText(currentItem.getImageName());
+        viewHolder.title.setText(currentItem.getName());
         //set on click listener on imageViewThumbnail
         viewHolder.img.setOnClickListener(new View.OnClickListener() {
             @Override

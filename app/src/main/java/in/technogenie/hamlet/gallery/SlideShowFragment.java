@@ -17,7 +17,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import in.technogenie.hamlet.R;
-import in.technogenie.hamlet.beans.GalleryItemVO;
+import in.technogenie.hamlet.beans.Upload;
+//import in.technogenie.hamlet.beans.GalleryItemVO;
 
 
 //Remember to implement  GalleryStripAdapter.GalleryStripCallBacks to fragment  for communication of fragment and GalleryStripAdapter
@@ -25,7 +26,7 @@ public class SlideShowFragment extends DialogFragment implements GalleryStripAda
     //declare static variable which will serve as key of current position argument
     private static final String ARG_CURRENT_POSITION = "position";
     //Declare list of GalleryItems
-    ArrayList<GalleryItemVO> galleryItems;
+    ArrayList<Upload> galleryItems;
     //Deceleration of  Gallery Strip Adapter
     GalleryStripAdapter mGalleryStripAdapter;
     // //Deceleration of  Slide show View Pager Adapter
@@ -45,7 +46,7 @@ public class SlideShowFragment extends DialogFragment implements GalleryStripAda
     }
 
     //This method will create new instance of SlideShowFragment
-    public static SlideShowFragment newInstance(int position, ArrayList<GalleryItemVO> galleryItems) {
+    public static SlideShowFragment newInstance(int position, ArrayList<Upload> galleryItems) {
         SlideShowFragment fragment = new SlideShowFragment();
         //Create bundle
         Bundle args = new Bundle();
@@ -112,7 +113,7 @@ public class SlideShowFragment extends DialogFragment implements GalleryStripAda
         //tell viewpager to open currently selected item and pass position of current item
         mViewPagerGallery.setCurrentItem(mCurrentPosition);
         //set image name textview's text according to position
-        textViewImageName.setText(galleryItems.get(mCurrentPosition).getImageName());
+        textViewImageName.setText(galleryItems.get(mCurrentPosition).getName());
         //Add OnPageChangeListener to viewpager to handle page changes
         mViewPagerGallery.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -123,7 +124,7 @@ public class SlideShowFragment extends DialogFragment implements GalleryStripAda
             @Override
             public void onPageSelected(int position) {
                 //set image name textview's text on any page selected
-                textViewImageName.setText(galleryItems.get(position).getImageName());
+                textViewImageName.setText(galleryItems.get(position).getName());
             }
 
             @Override

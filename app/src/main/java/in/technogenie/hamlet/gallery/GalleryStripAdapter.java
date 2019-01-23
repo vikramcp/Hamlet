@@ -14,18 +14,18 @@ import android.widget.ImageView;
 import java.util.List;
 
 import in.technogenie.hamlet.R;
-import in.technogenie.hamlet.beans.GalleryItemVO;
+import in.technogenie.hamlet.beans.Upload;
 import in.technogenie.hamlet.utils.ScreenUtils;
 
 
 public class GalleryStripAdapter extends RecyclerView.Adapter {
     //Declare list of GalleryItems
-    List<GalleryItemVO> galleryItems;
+    List<Upload> galleryItems;
     Context context;
     GalleryStripCallBacks mStripCallBacks;
-    GalleryItemVO mCurrentSelected;
+    Upload mCurrentSelected;
 
-    public GalleryStripAdapter(List<GalleryItemVO> galleryItems, Context context, GalleryStripCallBacks StripCallBacks, int CurrentPosition) {
+    public GalleryStripAdapter(List<Upload> galleryItems, Context context, GalleryStripCallBacks StripCallBacks, int CurrentPosition) {
         //set galleryItems
         this.galleryItems = galleryItems;
         this.context = context;
@@ -48,7 +48,7 @@ public class GalleryStripAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         //get Curent Gallery Item
-        GalleryItemVO mCurrentItem = galleryItems.get(position);
+        Upload mCurrentItem = galleryItems.get(position);
         //get thumb square size 1/6 of screen width
         final int thumbSize = ScreenUtils.getScreenWidth(context) / 6;
         //cast holder to galleryStripItemHolder
@@ -56,7 +56,7 @@ public class GalleryStripAdapter extends RecyclerView.Adapter {
         //get thumb size bitmap by using ThumbnailUtils
         /*Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(mCurrentItem.getImageUri()),
                 thumbSize, thumbSize);*/
-        Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeResource(context.getResources(), mCurrentItem.getImageUri()),
+        Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(mCurrentItem.getUrl()),
                 thumbSize, thumbSize);
         //set thumbnail
         galleryStripItemHolder.imageViewThumbnail.setImageBitmap(ThumbImage);

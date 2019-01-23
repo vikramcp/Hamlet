@@ -30,4 +30,8 @@ public class Constants {
     // supported file formats
     public static final List<String> FILE_EXTN = Arrays.asList("jpg", "jpeg", "png");
 
+    public static final String DB_GALLERY_PATH = "gallery";
+    public static final String STORAGE_GALLERY_PATH = "gallery";
+
+
 }
