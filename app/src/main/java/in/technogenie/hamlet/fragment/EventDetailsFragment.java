@@ -15,11 +15,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 import java.text.SimpleDateFormat;
 
 import in.technogenie.hamlet.R;
 import in.technogenie.hamlet.beans.Event;
 import in.technogenie.hamlet.utils.CommunicationsUtils;
+import in.technogenie.hamlet.utils.Constants;
+import in.technogenie.hamlet.utils.ScreenUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +53,9 @@ public class EventDetailsFragment extends Fragment {
     ImageView eventBanner;
     ImageButton userPhone;
 
+    //Firebase
+    StorageReference storageReference;
+    private DatabaseReference mDatabase;
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,8 +85,11 @@ public class EventDetailsFragment extends Fragment {
 
             eventVO = (Event) getArguments().getSerializable(ARG_PARAM1);
             Log.d("EventDetailsFragment", eventVO.toString());
-
         }
+
+        //Instantiate Firebase Storage & Database
+        storageReference = FirebaseStorage.getInstance().getReference(Constants.STORAGE_EVENT_PATH);
+        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DB_EVENT_PATH);
     }
 
     @Override
@@ -84,15 +98,15 @@ public class EventDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_details, container, false);
 
-        eventName = (TextView) view.findViewById(R.id.event_name);
-        description = (TextView) view.findViewById(R.id.description);
-        location = (TextView) view.findViewById(R.id.location);
-        eventDate = (TextView) view.findViewById(R.id.event_date);
-        startTime = (TextView) view.findViewById(R.id.start_time);
-        endTime = (TextView) view.findViewById(R.id.end_time);
+        eventName = view.findViewById(R.id.event_name);
+        description = view.findViewById(R.id.description);
+        location = view.findViewById(R.id.location);
+        eventDate = view.findViewById(R.id.event_date);
+        startTime = view.findViewById(R.id.start_time);
+        endTime = view.findViewById(R.id.end_time);
         //TextView status;
-        eventBanner = (ImageView) view.findViewById(R.id.event_banner);
-        userPhone = (ImageButton) view.findViewById(R.id.user_phone);
+        eventBanner = view.findViewById(R.id.event_banner);
+        userPhone = view.findViewById(R.id.user_phone);
 
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yyyy");
@@ -111,9 +125,13 @@ public class EventDetailsFragment extends Fragment {
         if (eventVO.getEndTime() != null) {
             endTime.setText(sf.format(eventVO.getEndTime()));
         }
-        //status
-        //eventBanner.setImageBitmap();
-        //userPhone.
+
+        //Load with Picasso
+        Picasso.get()
+                .load(eventVO.getImageURL())
+                .centerCrop()
+                .resize(ScreenUtils.getScreenWidth(getActivity()) / 2, ScreenUtils.getScreenHeight(getActivity()) / 3)//Resize image to width half of screen and height 1/3 of screen height
+                .into(eventBanner);
 
         userPhone.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

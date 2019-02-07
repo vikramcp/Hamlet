@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#b8870d</color>
-    <color name="colorPrimaryLight">#ffc107</color>
-    <color name="colorPrimaryDark">#827717</color>
+    <color name="colorPrimary">@color/blue</color>
+    <color name="colorPrimaryDark">@color/darkblue</color>
+    <color name="colorPrimaryLight">@color/light_blue</color>
+
     <color name="colorAccent">#dd2c00</color>
     <color name="foreground_material_light">#ffffff</color>
     <color name="background_material_light">#ffffff</color>
 
+    <item name="light_blue" type="color">#28F8F8</item>
+    <item name="blue" type="color">#03A9F4</item>
+    <item name="darkblue" type="color">#0288D1</item>
 
-    <item name="blue" type="color">#1E5AFF</item>
     <item name="purple" type="color">#FFAA66CC</item>
-    <item name="green" type="color">#64dd17</item>
-    <item name="orange" type="color">#FFFFBB33</item>
-    <item name="red" type="color">#FFFF4444</item>
-    <item name="darkblue" type="color">#0A7091</item>
     <item name="darkpurple" type="color">#FF9933CC</item>
+
+    <item name="green" type="color">#64dd17</item>
     <item name="darkgreen" type="color">#669900</item>
+
+    <item name="orange" type="color">#FFFFBB33</item>
     <item name="darkorange" type="color">#FFFF8800</item>
+
+    <item name="red" type="color">#FFFF4444</item>
     <item name="darkred" type="color">#FFCC0000</item>
+
+    <item name="golden" type="color">#b8870d</item>
+    <item name="darkgolden" type="color">#827717</item>
+
+
     <item name="pink" type="color">#FF8CE4</item>
     <item name="white" type="color">#ffffff</item>
     <item name="cyan" type="color">#00FFFF</item>
     <item name="lightblue" type="color">#ADD8E6</item>
-    <item name="grey" type="color">#9e9e9e</item>
+    <item name="grey" type="color">#777777</item>
     <item name="lightgrey" type="color">#dcdcdc</item>
     <item name="black" type="color">#000000</item>
 

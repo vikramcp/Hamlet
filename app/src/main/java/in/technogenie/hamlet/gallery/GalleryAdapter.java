@@ -19,7 +19,7 @@ import in.technogenie.hamlet.fragment.GalleryFragment;
 import in.technogenie.hamlet.utils.ScreenUtils;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
-    private ArrayList<Upload> galleryList;
+    private ArrayList<Upload> galleryList = null;
     //private Context context;
     private GalleryFragment fragment;
 
@@ -44,7 +44,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     //This method will take care of adding new Gallery items to RecyclerView
     public void addGalleryItems(List<Upload> galleryList) {
-        int previousSize = this.galleryList.size();
+        int previousSize = 0;
+        this.galleryList = new ArrayList<>();
         this.galleryList.addAll(galleryList);
         notifyItemRangeInserted(previousSize, galleryList.size());
     }

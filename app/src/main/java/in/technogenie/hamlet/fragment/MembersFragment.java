@@ -116,7 +116,7 @@ public class MembersFragment extends Fragment implements SearchView.OnQueryTextL
 
                 Log.d(TAG, "Opening new Member Registration Form :");
 
-                ft.add(R.id.frame, fragment3);
+                ft.replace(R.id.frame, fragment3);
                 ft.addToBackStack(null);
                 ft.commit();
             }
@@ -158,7 +158,7 @@ public class MembersFragment extends Fragment implements SearchView.OnQueryTextL
                 //bundle.putParcelable("customer", obj);
                 fragment2.setArguments(bundle);
 
-                ft.add(R.id.frame, fragment2);
+                ft.replace(R.id.frame, fragment2);
                 ft.addToBackStack(null);
                 ft.commit();
             }

@@ -33,5 +33,8 @@ public class Constants {
     public static final String DB_GALLERY_PATH = "gallery";
     public static final String STORAGE_GALLERY_PATH = "gallery";
 
+    public static final String DB_EVENT_PATH = "event";
+    public static final String STORAGE_EVENT_PATH = "event";
+
 
 }

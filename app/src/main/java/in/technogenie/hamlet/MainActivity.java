@@ -14,6 +14,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -305,7 +307,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setToolbarTitle() {
-        getSupportActionBar().setTitle(activityTitles[navItemIndex]);
+        SpannableStringBuilder str = new SpannableStringBuilder(activityTitles[navItemIndex]);
+        str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                0, activityTitles[navItemIndex].length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        getSupportActionBar().setTitle(str);
     }
 
     private void selectNavMenu() {

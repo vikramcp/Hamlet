@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import java.util.Timer;
 import java.util.TimerTask;
 
 import in.technogenie.hamlet.MainActivity;
@@ -45,9 +46,9 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     private String[] web = { "Members", "Gallery", "Messages", "Events","Promotions", "Contact Us" };
-    private Integer[] mThumbIds = { R.drawable.ic_person_white, R.drawable.ic_menu_gallery_white,
-            R.drawable.ic_message_white, R.drawable.ic_notifications_white, R.drawable.ic_live_tv_white,
-            R.drawable.ic_contacts_white};
+    private Integer[] mThumbIds = { R.drawable.ic_person, R.drawable.ic_menu_gallery,
+            R.drawable.ic_message, R.drawable.ic_notifications, R.drawable.ic_live_tv,
+            R.drawable.ic_contacts};
     GridView gridview;
 
     private final int[] GalImages = new int[] {
@@ -89,8 +90,8 @@ public class HomeFragment extends Fragment {
         }
 
         // Timer for the HomePage Slider
-        //Timer timer = new Timer();
-        //timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
 
     }
 
@@ -204,16 +205,18 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void run() {
-            HomeFragment.this.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (viewPager.getCurrentItem() < GalImages.length - 1) {
-                        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-                    } else {
-                        viewPager.setCurrentItem(0);
+            if (HomeFragment.this.getActivity() != null) {
+                HomeFragment.this.getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (viewPager != null && viewPager.getCurrentItem() < GalImages.length - 1) {
+                            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                        } else {
+                            viewPager.setCurrentItem(0);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 }

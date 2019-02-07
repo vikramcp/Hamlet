@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/hamlet_background"
     tools:context="in.technogenie.hamlet.fragment.HomeFragment">
 
     <LinearLayout
@@ -45,13 +46,13 @@
                 android:layout_height="match_parent"
                 android:columnWidth="90dp"
                 android:gravity="center"
-                android:horizontalSpacing="10dp"
+                android:horizontalSpacing="5dp"
                 android:listSelector="@android:color/transparent"
                 android:numColumns="3"
                 android:paddingTop="10dp"
                 android:scrollbars="vertical"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="10dp"></GridView>
+                android:verticalSpacing="5dp"></GridView>
         </RelativeLayout>
     </LinearLayout>
 </FrameLayout>

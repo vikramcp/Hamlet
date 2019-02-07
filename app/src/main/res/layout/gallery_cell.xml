@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
+        android:layout_margin="2dp"
         />
     <TextView
         android:id="@+id/title"
@@ -17,10 +18,9 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@color/black"
         android:lines="1"
-        android:padding="4dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         />
 </in.technogenie.hamlet.gallery.SquareLayout>

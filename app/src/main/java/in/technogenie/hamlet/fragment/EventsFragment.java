@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -90,6 +91,7 @@ public class EventsFragment extends Fragment implements SearchView.OnQueryTextLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(getContext());
 
     }
 
@@ -105,6 +107,7 @@ public class EventsFragment extends Fragment implements SearchView.OnQueryTextLi
 
         // Initialize Database
         mDatabase = FirebaseDatabase.getInstance().getReference("event");
+
         events = new ArrayList<Event>();
 
 

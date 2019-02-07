@@ -7,6 +7,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -36,7 +38,10 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import in.technogenie.hamlet.R;
@@ -44,6 +49,7 @@ import in.technogenie.hamlet.beans.Upload;
 import in.technogenie.hamlet.gallery.GalleryAdapter;
 import in.technogenie.hamlet.gallery.SlideShowFragment;
 import in.technogenie.hamlet.utils.Constants;
+import in.technogenie.hamlet.utils.ImageUtils;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -56,7 +62,7 @@ import static android.app.Activity.RESULT_OK;
  * create an instance of this fragment.
  */
 public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryAdapterCallBacks {
-    // TODO: Rename parameter arguments, choose names that match
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
 
@@ -69,36 +75,17 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
     private FloatingActionButton uploadImages;
     private final static String TAG = GalleryFragment.class.getSimpleName();
     //progress dialog
-    private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog = null;
 
     int PICK_IMAGE_MULTIPLE = 1;
     String imageEncoded;
     List<String> imagesEncodedList;
 
     //Firebase
-
     StorageReference storageReference;
     private DatabaseReference mDatabase;
 
     private static final String ARG_PARAM2 = "param2";
-/*
-    private final String image_titles[] = {
-            "Image 1",
-            "Image 2",
-            "Image 3",
-            "Image 4",
-    };*/
-
-/*    private final Integer image_ids[] = {
-            R.drawable.scene1,
-            R.drawable.scene2,
-            R.drawable.scene3,
-            R.drawable.technogenie,
-    };*/
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -114,7 +101,6 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
      * @param param2 Parameter 2.
      * @return A new instance of fragment HomeFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static GalleryFragment newInstance(String param1, String param2) {
         GalleryFragment fragment = new GalleryFragment();
         Bundle args = new Bundle();
@@ -127,10 +113,6 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
         //Instantiate Firebase Storage & Database
         storageReference = FirebaseStorage.getInstance().getReference(Constants.STORAGE_GALLERY_PATH);
@@ -175,7 +157,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
             //galleryItems = GalleryUtils.getImages(this.getActivity());
             prepareData();
 
-            Log.d("GalleryFragment", galleryItems.toString());
+            //Log.d("GalleryFragment", galleryItems.toString());
             // add images to gallery recyclerview using adapter
             //mGalleryAdapter.addGalleryItems(galleryItems);
         } else {
@@ -188,7 +170,6 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -223,25 +204,23 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
     private void prepareData() {
         Log.d("GalleryFragment", "Inside prepareData..");
         mGalleryAdapter = new GalleryAdapter(this);
-        galleryItems = new ArrayList<>();
+        //galleryItems = new ArrayList<>();
 
         progressDialog = new ProgressDialog(this.getContext());
-        progressDialog.setMessage("Please wait...");
+        progressDialog.setMessage("Please wait. Storing Data..");
         progressDialog.show();
-        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DB_GALLERY_PATH);
-
 
         //adding an event listener to fetch values
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                galleryItems = new ArrayList<>();
 
                 //iterating through all the values in database
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
@@ -264,17 +243,8 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
             }
         });
 
-
-
-/*        for (int i = 0; i < image_titles.length; i++) {
-
-            Upload galleryItemVO = new Upload();
-            galleryItemVO.setName(image_titles[i]);
-            galleryItemVO.setUrl(image_ids[i]);
-            theimage.add(galleryItemVO);
-        }*/
+        progressDialog.dismiss();
         Log.d("GalleryFragment", "Exiting prepareData :");
-        //return theimage;
     }
 
 
@@ -311,6 +281,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         Log.d(TAG, "Entering onActivityResult: " + resultCode);
+        Bitmap bmp = null;
         try {
             // When an Image is picked
             if (requestCode == PICK_IMAGE_MULTIPLE && resultCode == RESULT_OK
@@ -320,7 +291,8 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
                     Uri mImageUri = data.getData();
 
                     try {
-                        uploadImage(getContext(), mImageUri.getLastPathSegment(), mImageUri);
+                        bmp = ImageUtils.getImageFromResult(getContext(), resultCode, data);//your compressed bitmap here
+                        uploadImage(getContext(), mImageUri.getLastPathSegment(), mImageUri, bmp);
                     } catch (Exception e) {
                         Log.e(TAG, "Error uploading image :" + e);
                     }
@@ -333,7 +305,9 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
                             ClipData.Item item = mClipData.getItemAt(i);
                             Uri uri = item.getUri();
                             mArrayUri.add(uri);
-                            uploadImage(getContext(), uri.getLastPathSegment(), uri);
+                            data.setData(uri);
+                            bmp = ImageUtils.getImageFromResult(getContext(), resultCode, data);
+                            uploadImage(getContext(), uri.getLastPathSegment(), uri, bmp);
                         }
                         Log.v(TAG, "Selected Images" + mArrayUri.size());
                     }
@@ -359,7 +333,11 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
      * @param context
      * @param mImageUri
      */
-    private void uploadImage(final Context context, final String name, final Uri mImageUri) {
+    private void uploadImage(final Context context, final String name, final Uri mImageUri, Bitmap bmp) {
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
 
         Log.d(TAG, "Entering uploadImage :" + name + " :: " + mImageUri);
         if (mImageUri != null) {
@@ -367,12 +345,14 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
+            //Uri uri = ImageUtils.compressImage(getActivity(), mImageUri);
+
             //getting the storage reference
-            final String fileName = Constants.STORAGE_GALLERY_PATH + System.currentTimeMillis() + "." + getFileExtension(mImageUri);
+            final String fileName = Constants.STORAGE_GALLERY_PATH + System.currentTimeMillis() + "." +
+                    ImageUtils.getFileExtension(getActivity(), mImageUri);
             final StorageReference ref = storageReference.child(fileName);
 
-
-            ref.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            ref.putBytes(byteArray).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -382,7 +362,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
                             Log.d(TAG, "onSuccess Download URL :" + downloadUrl);
 
                             //creating the upload object to store uploaded image details
-                            Upload upload = new Upload(fileName.trim(), downloadUrl);
+                            Upload upload = new Upload(fileName.trim(), downloadUrl, Calendar.getInstance().getTime());
 
                             //adding an upload to firebase database
                             String uploadId = mDatabase.push().getKey();
@@ -411,13 +391,12 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.GalleryA
                         }
                     });
         }
+        if (progressDialog != null){
+            progressDialog.dismiss();
+        }
     }
 
-    public String getFileExtension(Uri uri) {
-        ContentResolver cR = getActivity().getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
-    }
+
 
 }
 
